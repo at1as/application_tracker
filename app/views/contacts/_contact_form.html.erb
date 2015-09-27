@@ -1,0 +1,67 @@
+<%= form_for [@user, @company, @contact], html: { class: "left" } do |f| %>
+
+  <p style="text-align:center">
+    <%= link_to "Back to #{@company.name} Profile", user_company_path(@user, @company) %>
+  </p>
+  
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-error">
+        This form contains <%= pluralize(@contact.errors.count, "error") %>
+      </div>
+      <ul>
+        <% @contact.errors.full_messages.each do |msg| %>
+          <li>* <%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h4 class="seperator">Contact Details</h4>
+  <hr>
+
+  <p>
+    <%= f.label "Name" %><span class="required_star">*</span><br>
+    <%= f.text_field :name, class: 'form-control' %>
+  </p>
+
+  <p>
+    <%= f.label "Position" %></span><br>
+    <%= f.text_field :position, class: 'form-control' %>
+  </p>
+
+  <p>
+    <%= f.label "Location" %></span><br>
+    <%= f.text_field :location, class: 'form-control' %>
+  </p>
+
+  <p>
+    <%= f.label "Email" %><br>
+    <%= f.text_field :email, class: 'form-control' %>
+  </p>
+  
+  <p>
+    <%= f.label "Phone" %><br>
+    <%= f.text_field :phone, class: 'form-control' %>
+  </p>
+  
+  <p>
+    <%= f.label "Details" %><br>
+    <%= f.text_area :details, class: 'form-control' %>
+  </p>
+
+  <% if f.object.new_record? %>
+    <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+    <p style="text-align:center">
+    <%= link_to 'Cancel', user_company_path(@user, @company), 
+      class: "btn btn-large btn-primary", style: "margin-top:10px; width:100%" %> 
+    </p>
+  <% else %>
+    <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+    <p style="text-align:center">
+    <%= link_to 'Delete Contact', user_company_contact_path, method: :delete, data: { confirm: 'Are you sure?' }, 
+      class: "btn btn-large btn-primary", style: "margin-top:10px; width:100%" %> 
+    </p>
+  <% end %>
+
+<% end %>

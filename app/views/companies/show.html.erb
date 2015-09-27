@@ -1,0 +1,88 @@
+<h1><%= @company.name %></h1>
+
+<div class="outer_form_container">
+  <div class="form_boundary">
+    
+    <p style="text-align:center">
+      <%= link_to 'Back to User Profile', user_path(current_user) %> 
+    </p>
+
+    <% if !flash.empty? %>
+      <div id="error_explanation">
+        <div class="alert alert-error">
+          <% flash.each do |key, value| %>
+            <%= content_tag :div, value, class: "flash #{key}" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <h4 class="seperator">Company Details</h4>
+    <hr>
+
+    <div style="font-size:15px;"> 
+      <dl class="detail_box">
+        <dt>
+          <b>Name </b>:
+        </dt>
+        <dd><%= @company.name %></dd>
+        <dt>
+          <b>Status </b>: 
+        </dt>
+        <dd><%= @company.status %></dd>
+        <dt>
+          <b>Location </b>:
+        </dt>
+        <dd><%= @company.location %></dd>
+        <dt>
+          <b>Size </b>: 
+        </dt>
+        <dd><%= @company.size %></dd>
+        <dt>
+          <b>Website </b>:
+        </dt>
+        <dd><%= link_to "#{@company.website}", "http://#{@company.website}" %></dd>
+        <dt>
+          <b>Details </b>:
+        </dt>
+        <dd><%= @company.details %></dd>
+      </dl>
+    </div>
+
+    <p style="width:100%; text-align:center; margin-top:20px;">
+      <b>Created </b>: <%= time_ago_in_words(@company.created_at) %> ago<br/>
+      <b>Updated </b>: <%= time_ago_in_words(@company.updated_at) %> ago
+    </p>
+
+
+    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+      <%= link_to 'Edit Company Details', edit_user_company_path(@user, @company),
+          class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px' %>
+      <%= button_to 'Delete Company', user_company_path, method: :delete, data: { confirm: 'Are you sure?'},
+          class: 'btn btn-large btn-primary' %>
+    </div>
+    
+    <p>
+    <% if @company.contacts.count == 0 %>                                                                                                                                     
+      <h4 class="seperator">Company Contacts</h4>
+    <% else %>
+      <h4 class="seperator">Company Contacts (<%= @company.contacts.count %>)</h4>
+    <% end %>
+    
+    <hr>
+    
+    <% if @company.contacts.any? %>
+      <%= render @contacts %>
+    <% end %>
+    <%= will_paginate @contacts %>
+  
+    </p>
+
+
+    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+      <%= link_to 'Add New Contact', new_user_company_contact_path(@user, @company),
+          class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px'%>
+    </div>
+
+  </div>
+</div>

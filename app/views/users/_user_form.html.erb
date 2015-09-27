@@ -1,0 +1,46 @@
+<%= form_for @user, html: { class: "left" } do |f| %>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-error">
+        This form contains <%= pluralize(@user.errors.count, "error") %>
+      </div>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li>* <%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <span class="seperator">Account Details</span>
+  <hr>
+
+  <p>
+    <%= f.label "Email" %><span class="required_star">*</span><br>
+    <% if f.object.new_record? %>
+      <%= f.text_field :email, class: 'form-control' %>
+    <% else %>
+      <%= f.text_field :email, class: 'form-control', :readonly => true %>
+    <% end %>
+  </p>
+
+  <p>
+    <%= f.label "Password" %><span class="required_star">*</span><br>
+    <%= f.password_field :password, class: 'form-control' %>  
+  </p>
+
+  <p>
+    <%= f.label "Confirm Password" %><span class="required_star">*</span><br>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>  
+  </p>
+  
+  <p style="margin-top:30px">
+  <% if f.object.new_record? %>
+    <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+  <% else %>
+    <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+  <% end %>
+  </p>
+
+<% end %>

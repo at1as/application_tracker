@@ -1,0 +1,21 @@
+<tr>
+  <td class="name">
+    <%= link_to "#{company.name}", user_company_path(@user, company) %>
+  </td>
+  <td class="status">
+    <%= company.status %>
+  </td>
+  <td class="updated">
+    <%= company.updated_at.to_date %>
+  </td>
+  <td class="location">
+    <%= company.location %>
+  </td>
+  <td class="size">
+    <%= company.size %>
+  </td>
+  <td class="delete">
+    <%= link_to 'Edit', edit_user_company_path(@user, company) %> 
+    <%= link_to 'Delete', user_company_path(@user, company), method: :delete, data: { confirm: 'Are you sure?' } %> 
+  </td>
+</tr>

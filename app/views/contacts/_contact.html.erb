@@ -1,0 +1,9 @@
+<div style="margin-left:auto; margin-right:auto; width:100%; text-align:center">
+  <% if !contact.email.empty? %>
+    <%= link_to "#{contact.name} (#{contact.email})", user_company_contact_path(@user, @company, contact) %>
+  <% elsif !contact.phone.empty? %>
+    <%= link_to "#{contact.name} (#{contact.phone})", user_company_contact_path(@user, @company, contact) %>
+  <% else %>
+    <%= link_to "#{contact.name}", user_company_contact_path(@user, @company, contact) %>
+  <% end %>
+</div>
