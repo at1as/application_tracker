@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   resources :users do
     resources :companies do
       resources :contacts
-    end #, only: [:create, :update, :destroy]
+      resources :positions
+    end
   end
   
   # Custom URLs 

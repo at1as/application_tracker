@@ -1,0 +1,7 @@
+<div style="margin-left:auto; margin-right:auto; width:100%; text-align:center">
+  <% if !position.url.empty? %>
+    <%= link_to "#{position.name}", user_company_position_path(@user, @company, position) %> (<%= link_to "Site URL", "{position.url}" %>)
+  <% else %>
+    <%= link_to "#{position.name}", user_company_position_path(@user, @company, position) %>
+  <% end %>
+</div>

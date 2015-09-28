@@ -27,14 +27,16 @@
 
   <p>
     <%= f.label "Current Status" %><span class="required_star">*</span><br/>
-    <%= f.select :status, options_for_select([['Applied', 'Applied'], 
+    <%= f.select :status, options_for_select([  ['Applied', 'Applied'], 
                                                 ['Interview Scheduled', 'Interview Scheduled'],
                                                 ['Awaiting Interview Result', 'Awaiting Interview Result'],
                                                 ['Offer Accepted', 'Offer Accepted'],
                                                 ['Offer Declined', 'Offer Declined'],
+                                                ['No Offer', 'No Offer'],
                                                 ['No Response', 'No Response'],
                                                 ['Watching', 'Watching'],
-                                                ['Other', 'Other']]), 
+                                                ['Other', 'Other']],
+                                                ["#{@company.status}", "#{@company.status}"]), 
                                                 name: 'status', 
                                                 class: 'form-control' %>
   </p>

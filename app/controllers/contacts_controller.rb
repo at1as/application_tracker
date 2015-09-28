@@ -1,4 +1,6 @@
 class ContactsController < ApplicationController
+  
+  before_action :logged_in_user
 
   def new
     @user = current_user
@@ -24,7 +26,7 @@ class ContactsController < ApplicationController
     @contact = @company.contacts.build(contact_params)
     
     if @contact.save
-      flash[:success] = "Contact profile created"
+      flash['alert-success'] = "Contact profile created"
       redirect_to user_company_path(current_user, @company)
     else
       render 'new'
@@ -36,7 +38,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
 
     if @contact.update(contact_params)
-      flash[:success] = "Contact details updated"
+      flash['alert-success'] = "Contact details updated"
       redirect_to user_company_path(current_user, @company)
     else
       render 'edit'
@@ -48,7 +50,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
 
     @contact.destroy
-    redirect_to user_company_path(current_user, @company), :flash => {:success => "Contact deleted!" }
+    redirect_to user_company_path(current_user, @company), :flash => {'alert-success': "Contact deleted!" }
   end
     
   private

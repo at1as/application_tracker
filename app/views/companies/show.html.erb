@@ -22,30 +22,45 @@
 
     <div style="font-size:15px;"> 
       <dl class="detail_box">
+
         <dt>
           <b>Name </b>:
         </dt>
         <dd><%= @company.name %></dd>
+
         <dt>
           <b>Status </b>: 
         </dt>
         <dd><%= @company.status %></dd>
+
+        <% if !@company.location.empty? %>
         <dt>
           <b>Location </b>:
         </dt>
         <dd><%= @company.location %></dd>
+        <% end %>
+
+        <% if !@company.size.empty? %>
         <dt>
           <b>Size </b>: 
         </dt>
         <dd><%= @company.size %></dd>
+        <% end %>
+
+        <% if !@company.website.empty? %>
         <dt>
           <b>Website </b>:
         </dt>
         <dd><%= link_to "#{@company.website}", "http://#{@company.website}" %></dd>
+        <% end %>
+
+        <% if !@company.details.empty? %>
         <dt>
           <b>Details </b>:
         </dt>
         <dd><%= @company.details %></dd>
+        <% end %>
+
       </dl>
     </div>
 
@@ -61,7 +76,8 @@
       <%= button_to 'Delete Company', user_company_path, method: :delete, data: { confirm: 'Are you sure?'},
           class: 'btn btn-large btn-primary' %>
     </div>
-    
+
+    <!-- COMPANIES -->
     <p>
     <% if @company.contacts.count == 0 %>                                                                                                                                     
       <h4 class="seperator">Company Contacts</h4>
@@ -78,10 +94,54 @@
   
     </p>
 
-
     <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
       <%= link_to 'Add New Contact', new_user_company_contact_path(@user, @company),
           class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px'%>
+    </div>
+    
+    <!-- POSITIONS -->
+    <p>
+    <% if @company.positions.count == 0 %>                                                                                                                                    
+      <h4 class="seperator">Company Positions</h4>
+    <% else %>
+      <h4 class="seperator">Company Positions (<%= @company.positions.count %>)</h4>
+    <% end %>
+    
+    <hr>
+    
+    <% if @company.positions.any? %>
+      <%= render @positions %>
+      <%= will_paginate @positions %>
+    <% end %>
+  
+    </p>
+    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+      <%= link_to 'Add New Position', new_user_company_position_path(@user, @company),
+          class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px'%>
+    </div>
+
+    <!-- ATTACHMENTS -->
+    <p>
+    <h4 class="seperator">Attachments</h4>
+    
+    <hr>
+    </p>
+    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+      
+      <% if @company.attachment.exists? %>
+        <%= link_to "Download", @company.attachment.url(:original, false), style: 'text-align:center; width:100%' %>
+        <!-- TODO: ADD Delete -->
+        <!--
+        <%= link_to 'Delete Upload', @company.attachment.destroy, method: :delete, data: { confirm: "Are you sure you want to delete your account and all associated posts? This can't be undone" } %><br/>
+        -->
+      <% else %>
+        <%= form_for [@user, @company], url: user_company_path(@user, @company), html: { multipart: true } do |f| %>
+          <%= f.hidden_field :name, :value => @company.name %>
+          <%= f.file_field :attachment, style: "border:none" %>
+          <!-- TODO: Add description -->
+          <%= f.submit "Upload", class: "btn btn-large btn-primary" %>
+        <% end %>
+      <% end %>
     </div>
 
   </div>

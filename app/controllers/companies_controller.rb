@@ -1,5 +1,6 @@
 class CompaniesController < ApplicationController
-  before_action :logged_in_user, only: [:create, :update, :destroy]
+  
+  before_action :logged_in_user
 
   def index
     @user = current_user
@@ -20,13 +21,14 @@ class CompaniesController < ApplicationController
     @user = current_user
     @company = Company.find(params[:id])
     @contacts = @company.contacts.paginate(page: params[:page])
+    @positions = @company.positions.paginate(page: params[:page])
   end
 
   def create
     @user = current_user
     @company = current_user.companies.build(company_params)
     if @company.save
-      flash[:success] = "Company profile created"
+      flash['alert-success'] = "Company profile created"
       redirect_to user_path(current_user)
     else
       render 'new'
@@ -37,7 +39,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
 
     if @company.update(company_params)
-      flash[:success] = "Company profile updated"
+      flash['alert-success'] = "Company profile updated"
       redirect_to user_company_path(current_user, @company)
     else
       render 'edit'
@@ -53,7 +55,7 @@ class CompaniesController < ApplicationController
 
   private
     def company_params
-      params.require(:company).permit(:name, :status, :location, :size, :website, :details)
+      params.require(:company).permit(:name, :status, :location, :size, :website, :details, :attachment)
     end
 
 end

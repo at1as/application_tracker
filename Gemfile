@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -24,6 +22,9 @@ gem 'bootstrap-will_paginate', '0.0.10'
 
 # Table sorting
 gem 'bootstrap-table-rails', '~> 1.8.1'
+
+# Upload images
+gem 'paperclip', '~> 4.3'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -50,6 +51,17 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'debugger', group: [:development, :test]
 
 # Generate security reports brakeman
-group :development do
+# Use sqlite for development and test
+group :development, :test do
   gem 'brakeman', :require => false
+  gem 'sqlite3'
+end
+
+group :production do
+  
+  # Use postgres for production (for Heroku deploy)
+  gem 'pg', '~>0.18.1'
+
+  # Needed for Heroku
+  gem 'rails_12factor'
 end
