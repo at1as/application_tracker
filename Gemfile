@@ -65,3 +65,6 @@ group :production do
   # Needed for Heroku
   gem 'rails_12factor'
 end
+
+ruby ENV['CUSTOM_RUBY_VERSION'] || '2.2.0'
+
