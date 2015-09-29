@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root 'sessions#new'
 
   # Nested Controllers
-  resources :users do
+  resources :users, except: [:index] do
     resources :companies do
       resources :contacts
       resources :positions
