@@ -17,15 +17,15 @@ ActiveRecord::Schema.define(version: 20150928182912) do
   enable_extension "plpgsql"
 
   create_table "companies", force: :cascade do |t|
-    t.string   "name",                    limit: 255
-    t.string   "location",                limit: 255
-    t.string   "size",                    limit: 255
+    t.string   "name"
+    t.string   "location"
+    t.string   "size"
     t.text     "details"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "status",                  limit: 255
-    t.string   "website",                 limit: 255
+    t.string   "status"
+    t.string   "website"
     t.integer  "position_id"
     t.string   "attachment_file_name"
     t.string   "attachment_content_type"
@@ -60,11 +60,13 @@ ActiveRecord::Schema.define(version: 20150928182912) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",           limit: 255
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_digest", limit: 255
-    t.string   "remember_digest", limit: 255
+    t.string   "password_digest"
+    t.string   "remember_digest"
   end
 
+  add_foreign_key "companies", "positions"
+  add_foreign_key "contacts", "companies"
 end

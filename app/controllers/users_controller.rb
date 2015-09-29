@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :logged_in_user
+  before_action :logged_in_user, except: [:new, :create]
 
   def show
     @user = User.find(params[:id])

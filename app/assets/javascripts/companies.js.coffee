@@ -5,8 +5,8 @@
 window.Application ||= {}
 
 # Hide filters on load
-#window.onload = () ->
-#  $("#company_filters").hide()
+window.onload = () ->
+  $("#company_filters").hide()
 
 # Toggle Filter Visibility
 $(document).on 'click', '#filter_toggle_link', () ->
