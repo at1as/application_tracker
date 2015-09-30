@@ -26,6 +26,9 @@ gem 'bootstrap-table-rails', '~> 1.8.1'
 # Upload images
 gem 'paperclip', '~> 4.3'
 
+# Serve static pages
+gem 'high_voltage', '~> 2.4'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

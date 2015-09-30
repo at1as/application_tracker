@@ -27,8 +27,9 @@ class CompaniesController < ApplicationController
   def create
     @user = current_user
     @company = current_user.companies.build(company_params)
+
     if @company.save
-      flash['alert-success'] = "Company profile created"
+      flash[:success] = "Company profile created"
       redirect_to user_path(current_user)
     else
       render 'new'
@@ -36,10 +37,11 @@ class CompaniesController < ApplicationController
   end
 
   def update
+    @user = current_user
     @company = Company.find(params[:id])
 
     if @company.update(company_params)
-      flash['alert-success'] = "Company profile updated"
+      flash[:success] = "Company profile updated"
       redirect_to user_company_path(current_user, @company)
     else
       render 'edit'
@@ -51,6 +53,15 @@ class CompaniesController < ApplicationController
 
     @company.destroy
     redirect_to user_path(current_user), :flash => { :success => "Company deleted!" }
+  end
+
+  def remove_attachment
+    @user = current_user
+    @company = Company.find(params[:id])
+    @company.attachment = nil
+    @company.save
+
+    redirect_to user_company_path(@user, @company), flash: { success: 'Attachment has been removed.' }
   end
 
   private

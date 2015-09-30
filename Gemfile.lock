@@ -76,6 +76,7 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
+    high_voltage (2.4.0)
     highline (1.7.7)
     i18n (0.7.0)
     jbuilder (2.3.1)
@@ -190,6 +191,7 @@ DEPENDENCIES
   bootstrap-will_paginate (= 0.0.10)
   brakeman
   coffee-rails (~> 4.0.0)
+  high_voltage (~> 2.4)
   jbuilder (~> 2.0)
   jquery-rails
   paperclip (~> 4.3)
