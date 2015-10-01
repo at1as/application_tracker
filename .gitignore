@@ -20,3 +20,6 @@
 # Secrets
 # /config/secrets.yml (Passing as env variable now)
 /config/initializers/secret_token.rb
+
+# 
+/public/system
