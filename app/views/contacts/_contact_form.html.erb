@@ -6,6 +6,19 @@
   
   <%= flash_messages %>
 
+  <% if @contact.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+    This form contains <%= pluralize(@contact.errors.count, "error") %>
+    </div>
+    <ul>
+    <% @contact.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
   <h4 class="seperator">Contact Details</h4>
   <hr>
 

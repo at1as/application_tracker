@@ -9,7 +9,7 @@ class Company < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :user_id }
   validates :status, presence: true
 
 end
