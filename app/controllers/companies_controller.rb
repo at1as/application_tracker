@@ -4,7 +4,7 @@ class CompaniesController < ApplicationController
 
   def index
     @user = current_user
-    @companies = @user.companies
+    @companies = @user.companies.paginate(page: params[:page])
   end
 
   def new
