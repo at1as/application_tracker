@@ -5,7 +5,7 @@
 window.Application ||= {}
 
 # Hide filters on load
-window.onload = () ->
+$(document).on 'ready page:load', () ->
   $("#company_filters").hide()
 
 # Toggle Filter Visibility
