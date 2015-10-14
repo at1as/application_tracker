@@ -25,4 +25,5 @@ USER nobody
 WORKDIR /app
 
 ENV RUBY_ENV production
-CMD ["bin/rails", "server"]
+CMD ["bin/rails", "server", "--port", "3000"]
+EXPOSE 3000

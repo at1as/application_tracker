@@ -4,9 +4,30 @@
 
 window.Application ||= {}
 
-# Hide filters on load
+# Start listener for keypress in company_filters on page load
 $(document).on 'ready page:load', () ->
-  $("#company_filters").hide()
+  $(document).on 'keyup', '#company_filters', (event) ->
+    filter_form(event)
+
+
+# Clear all Filters
+$(document).on 'click', '#clear_filters', () ->
+
+  # Block filtering while fields are being cleared
+  $(document).off 'keyup', '#company_filters'
+  $('#company_filters').find("input[type=search], input[type=number], textarea").val('')
+
+  # Send query without payload to clear filters
+  $.ajax
+    type: "GET"
+    url: $('#company_filters').attr("action")
+    success: (data) ->
+      $("#company_index_listing").html(data)
+  
+  # Re-enable filtering and repopulate document
+  $(document).on 'keyup', '#company_filters', (event) ->
+    filter_form(event)
+  
 
 # Toggle Filter Visibility
 $(document).on 'click', '#filter_toggle_link', () ->
@@ -17,51 +38,33 @@ $(document).on 'click', '#filter_toggle_link', () ->
     $("#company_filters").show()
     $("#filter_toggle_link").text("Hide Company Filters")
 
-# Filter for every added character
-$(document).on 'keyup', '.filter_results', () ->
+
+# Filter results shown
+filter_form = (event) ->
+
+  # Ignore Tab, Shift, Ctrl, Arrow (left, up, right, down)
+  if event.keyCode in [9, 16, 17, 37, 38, 39, 40]
+    return
+
+  # Block all other keyup events while filtering
+  $(document).off 'keyup', '#company_filters'
   
-  $('#company_table > tbody > tr').each (i, row) ->
-    
-    name_query = $('#filter_results_name').val().toLowerCase()
-    name_field = $(this).find('td:eq(0)').text().trim().toLowerCase()
-    
-    status_query = $('#filter_results_status').val().toLowerCase()
-    status_field = $(this).find('td:eq(1)').text().trim().toLowerCase()
-    
-    updated_year_query = $('#filter_updated_year').val()
-    updated_month_query = $('#filter_updated_month').val()
-    updated_day_query = $('#filter_updated_day').val()
-    updated_query = updated_year_query
-    if updated_month_query
-      updated_query = updated_year_query + '-' + updated_month_query
-    if updated_day_query
-      updated_query = updated_query + '-' + updated_day_query
-    updated_field = $(this).find('td:eq(2)').text().trim()
-    
-    location_query = $('#filter_results_location').val().toLowerCase()
-    location_field = $(this).find('td:eq(3)').text().trim().toLowerCase()
-    
-    min_size_query = $('#filter_results_size_min').val()
-    min_size_field = $(this).find('td:eq(4)').text().trim()
-    max_size_query = $('#filter_results_size_max').val()
-    max_size_field = $(this).find('td:eq(4)').text().trim()
+  # Form submission event listener 
+  $('form#company_filters').submit (event) ->
+    dataSet = $(this).serialize()
+  
+    $.ajax
+      type: "GET"
+      url: $(this).attr("action")
+      data: dataSet
+      success: (data) ->
+        $("#company_index_listing").html(data)
 
-    # Show all rows by default, and then hide upon fitler violation
-    $(this).show()
-
-    if name_field and not name_field.match(name_query)
-      $(this).hide()
-    else if status_query and not status_field.match(status_query)
-      $(this).hide()
-    else if updated_year_query and compare_date(updated_query, updated_field)
-      $(this).hide()
-    else if location_query and not location_field.match(location_query)
-      $(this).hide()
-    else if min_size_query and parseInt(min_size_field) < parseInt(min_size_query)
-      $(this).hide()
-    else if max_size_query and parseInt(max_size_field) > parseInt(max_size_query)
-      $(this).hide()
-
-
-compare_date = (date1, date2) ->
-  return new Date(date1) > new Date(date2)
+  # Force submit form and then deactive listener
+  $('form#company_filters').submit()
+  $('form#company_filters').off 'submit'
+  
+  # Reactive Event listener for keypress in company_filter form
+  $(document).on 'keyup', '#company_filters', (event) ->
+    filter_form(event)
+  

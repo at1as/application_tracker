@@ -1,39 +1,42 @@
 <div class="center">
-  
+
   <h1>List of Companies</h1>
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       
-
+      <%= flash_messages %>
+      
       <h4 class="seperator">Companies (<%= @user.companies.count %>)</h4>
       <hr>
       
       <div class="col-md-12">
         <p style="margin-bottom:20px">
         <%= link_to 'Add New Company', new_user_company_path(@user) %><br/> 
-        <%= link_to 'Show Company Filters', 'javascript:void(0)', id: "filter_toggle_link" %><br/>
+        <%= link_to 'Hide Company Filters', 'javascript:void(0)', id: "filter_toggle_link" %><br/>
         </p>
         
         <%= render :partial => '/companies/filters' %>
 
-        <% if @user.companies.any? %>
-          <table class="table table-bordered table-striped sortable" summary="User company list" style="margin-left:auto;margin-right:auto; margin-top:40px" id="company_table" data-sortable>
-            <thead>
-              <tr>
-                <th data-align="center" data-field="name" data-sortable="true" style="text-align:center">Name</th>
-                <th data-align="center" data-field="status" data-sortable="true" style="text-align:center">Status</th>
-                <th data-align="center" data-field="updated" data-sortable="true" style="text-align:center">Updated</th>
-                <th data-align="center" data-field="location" data-sortable="true" style="text-align:center">Location</th>
-                <th data-align="center" data-field="size" data-sortable="true" style="text-align:center">Size</th>
-                <th style="text-align:center">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= render @companies %>
-            </tbody>
-          </table>
-          <%= will_paginate @companies %>
-        <% end %>
+        <div id="company_index" style="display:inline-block" class="col-md-12">
+          <% if @user.companies.any? %>
+            <table class="table table-bordered table-striped sortable" summary="User company list" style="margin-left:auto;margin-right:auto; margin-top:40px" id="company_table" data-sortable>
+              <thead>
+                <tr>
+                  <th data-align="center" data-field="name" data-sortable="true" style="text-align:center">Name</th>
+                  <th data-align="center" data-field="status" data-sortable="true" style="text-align:center">Status</th>
+                  <th data-align="center" data-field="updated" data-sortable="true" style="text-align:center">Updated</th>
+                  <th data-align="center" data-field="location" data-sortable="true" style="text-align:center">Location</th>
+                  <th data-align="center" data-field="size" data-sortable="true" style="text-align:center">Size</th>
+                  <th style="text-align:center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="company_index_listing">
+                <%= render @companies %>
+              </tbody>
+            </table>
+            <%= will_paginate @companies %>
+          <% end %>
+        </div>
       </div>
 
 

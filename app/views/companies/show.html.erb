@@ -9,6 +9,8 @@
 
     <%= flash_messages %>
 
+
+
     <h4 class="seperator">Company Details</h4>
     <hr>
 
@@ -32,7 +34,7 @@
         <dd><%= @company.location %></dd>
         <% end %>
 
-        <% if !@company.size.empty? %>
+        <% if !@company.size.nil? %>
         <dt>
           <b>Size </b>: 
         </dt>
@@ -50,7 +52,7 @@
         <dt>
           <b>Details </b>:
         </dt>
-        <dd><%= @company.details %></dd>
+        <dd><pre class="pre_strip_formatting"><%= @company.details %></pre></dd>
         <% end %>
 
       </dl>
@@ -62,7 +64,7 @@
     </p>
 
 
-    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+    <div style="margin-top:30px; margin-bottom:10px; max-width:185px; margin-left:auto; margin-right:auto">
       <%= link_to 'Edit Company Details', edit_user_company_path(@user, @company),
           class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px' %>
       <%= button_to 'Delete Company', user_company_path, method: :delete, data: { confirm: 'Are you sure?'},
@@ -86,7 +88,7 @@
   
     </p>
 
-    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+    <div style="margin-top:30px; margin-bottom:10px; max-width:185px; margin-left:auto; margin-right:auto">
       <%= link_to 'Add New Contact', new_user_company_contact_path(@user, @company),
           class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px'%>
     </div>
@@ -107,21 +109,23 @@
     <% end %>
   
     </p>
-    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+    <div style="margin-top:30px; margin-bottom:10px; max-width:185px; margin-left:auto; margin-right:auto">
       <%= link_to 'Add New Position', new_user_company_position_path(@user, @company),
           class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px'%>
     </div>
 
     <!-- ATTACHMENTS -->
     <p>
-    <h4 class="seperator">Attachments</h4>
+    <h4 class="seperator">Attachment</h4>
     
     <hr>
     </p>
-    <div style="margin-top:30px; margin-bottom:10px; max-width:250px; margin-left:auto; margin-right:auto">
+    <div style="margin-top:30px; margin-bottom:10px; max-width:185px; margin-left:auto; margin-right:auto">
       
       <% if @company.attachment.exists? %>
-        <%= link_to "#{@company.attachment.original_filename}", @company.attachment.url(:original, false), style: 'text-align:center; width:100%' %><br/>
+        <div style="text-align:center">
+          <%= link_to "#{clip(@company.attachment.original_filename, 25)}", @company.attachment.url(:original, false), style: 'text-align:center; width:100%' %>
+        </div>
         <%= form_for [@user, @company], url: user_company_path(@user, @company), html: { multipart: true } do |f| %>
           <%= link_to 'Delete Attachment', remove_company_attachment_path, class: 'btn btn-large btn-primary', style: 'margin-top:20px; width:100%' %>
         <% end %>

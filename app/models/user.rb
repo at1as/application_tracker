@@ -14,16 +14,6 @@ class User < ActiveRecord::Base
   has_secure_password
 
 
-  # true if user has created a listing
-  #def has_listing?
-  #  self['listing_id'].nil? ? false : true    
-  #end
-
-  # Listing ID of user's listing
-  #def listing_index
-  #  self['listing_id'] if has_listing?  
-  #end
-
   # Generate a random token
   def User.new_token
     SecureRandom.urlsafe_base64
