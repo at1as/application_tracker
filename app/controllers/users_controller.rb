@@ -29,7 +29,8 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(update_user_params)
-      redirect to '/'
+      flash[:success] = "Profile Updated"
+      redirect_to '/'
     else
       render 'edit'
     end
@@ -40,6 +41,31 @@ class UsersController < ApplicationController
 
     @user.destory
   end
+
+  def change_email
+    @user = current_user
+    
+    render 'change_email'
+  end
+
+  def update_email
+    @user = current_user
+    
+    if @user && @user.authenticate(params[:password])
+      @user.update_attributes('email' => params[:email], 'password' => params[:password])
+      
+      if @user.save
+        flash[:success] = "Profile Email Address Updated to #{@user.email}"
+        redirect_to '/'
+      else
+        render 'change_email'
+      end
+    else
+      flash[:error] = "Wrong Password"
+      render 'change_email'
+    end
+  end
+
 
   private
     def set_user

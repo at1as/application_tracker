@@ -67,4 +67,4 @@ filter_form = (event) ->
   # Reactive Event listener for keypress in company_filter form
   $(document).on 'keyup', '#company_filters', (event) ->
     filter_form(event)
-  
+ 

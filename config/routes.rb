@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   
   # High precedence custom routes
   get 'users/:user_id/companies/filter', to: 'companies#filter', as: 'filter_companies'
+  get 'users/:user_id/change_email', to: 'users#change_email', as: 'change_email'
+  post 'users/:user_id/change_email', to: 'users#update_email', as: 'update_email'
 
   # Nested Controllers
   resources :users, except: [:index] do

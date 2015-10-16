@@ -1,4 +1,4 @@
-<%= form_tag filter_companies_path, method: "get", remote: true, id: "company_filters", style: "text-align:left", class: "filter_box col-md-8 col-md-offset-2" do |f| %>
+<%= form_tag filter_companies_path, method: "get", remote: true, id: "company_filters", style: "text-align:left", autocomplete: "off",  class: "filter_box col-md-8 col-md-offset-2" do |f| %>
 
   <div class="form-group">
     <%= label_tag 'filter_name', 'Name' %>

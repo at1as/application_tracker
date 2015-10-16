@@ -1,35 +1,23 @@
 class CompaniesController < ApplicationController
   
   before_action :logged_in_user
-  MAX_POSTGRES_INT = 2147483647
 
   def filter
     @user = current_user
 
-    conditions = {}
-    conditions[:name] = params[:filter_name] unless params[:filter_name].blank?
-    conditions[:status] = params[:filter_status] unless params[:filter_status].blank?
-    conditions[:location] = params[:filter_location] unless params[:filter_location].blank?
-
-    # Size Conditions
-    if !params[:filter_size_min].blank? || !params[:filter_size_max].blank?
-      params[:filter_size_min].blank? ? min_size = 1 : min_size = params[:filter_size_min].to_i
-      params[:filter_size_max].blank? ? max_size = MAX_POSTGRES_INT : max_size = params[:filter_size_max].to_i
-      conditions[:size] = (min_size..max_size)
-    end
-
-    # Date Conditions
+    # Construct Updated_At Conditions from form before sending to model for query
     if !params[:filter_updated_year].blank? || !params[:filter_updated_month].blank? || !params[:filter_updated_day].blank?
+     
+      # If any date field is present, construct date query with:
+      #   default year set to current year, default month set to January, default day set to 1
+      params[:filter_updated_year].blank? ? date = "#{Time.now.year}" : date = "#{valid_range(params[:filter_updated_year], 2000, 2020)}"
+      params[:filter_updated_month].blank? ? date = date + "-01" : date = date + "-#{valid_range(params[:filter_updated_month], 1, 12)}"
+      params[:filter_updated_day].blank? ? date = date + "-01" : date = date + "-#{valid_range(params[:filter_updated_day], 1, 31)}"
       
-      params[:filter_updated_year].blank? ? date = "#{Time.now.year}" : date = "#{params[:filter_updated_year]}" 
-      params[:filter_updated_month].blank? ? date = date + "-01" : date = date + "-#{params[:filter_updated_month]}"
-      params[:filter_updated_day].blank? ? date = date + "-01" : date = date + "-#{params[:filter_updated_day]}"
-      
-      date = Time.parse(date)
-      conditions[:updated_at] = date..Time.now.tomorrow
+      params[:date] = Time.parse(date) rescue nil
     end
-    
-    @companies = @user.companies.where(conditions).paginate(page: params[:page])
+
+    @companies = @user.companies.filter(params).paginate(page: params[:page])
     @length = @companies.length
 
     render :partial => 'company', collection: @companies
@@ -104,4 +92,13 @@ class CompaniesController < ApplicationController
       params.require(:company).permit(:name, :status, :location, :size, :website, :details, :attachment)
     end
 
+    def valid_range(num, min, max)
+      if num.to_i < min
+        return min
+      elsif num.to_i > max
+        return max
+      else
+        return num.to_i
+      end
+    end
 end
