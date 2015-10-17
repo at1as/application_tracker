@@ -1,0 +1,52 @@
+<div class="center">
+
+  <h1>Change Email</h1>
+
+    <div class="outer_form_container">
+      <div class="form_boundary">
+      
+      
+<%= form_tag update_email_path(@user), method: "post", class: "left" do |f| %>
+
+  <%= flash_messages %>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-error">
+      This form contains <%= pluralize(@user.errors.count, "error") %>
+      </div>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+        <li>* <%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <span class="seperator">Account Details</span>
+  <hr>
+
+  <p>
+    <%= label_tag "email", "Email"%><span class="required_star">*</span><br>
+    <%= text_field_tag :email, @user.email, class: 'form-control' %>
+  </p>
+
+
+  <p>
+    <%= label_tag "password", "Password" %><span class="required_star">*</span><br>
+    <%= password_field_tag :password, '', class: 'form-control' %>  
+  </p>
+
+  <p style="margin-top:30px">
+    <%= submit_tag "Update", class: "btn btn-large btn-primary" %>
+  </p>
+
+<% end %>
+      
+      
+      </div>
+    </div>
+
+  <%= link_to 'Back', @user %>
+
+</div>
