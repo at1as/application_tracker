@@ -53,7 +53,7 @@ class CompaniesController < ApplicationController
 
     if @company.save
       flash[:success] = "Company profile created"
-      redirect_to user_path(current_user)
+      redirect_to user_companies_path(current_user)
     else
       render 'new'
     end

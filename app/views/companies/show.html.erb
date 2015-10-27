@@ -133,7 +133,7 @@
       <% else %>
         <%= form_for [@user, @company], url: user_company_path(@user, @company), html: { multipart: true } do |f| %>
           <%= f.hidden_field :name, :value => @company.name %>
-          <%= f.file_field :attachment, style: "border:none" %>
+          <%= f.file_field :attachment, style: "border:none; padding:0px" %>
           <!-- TODO: Add description -->
           <%= f.submit "Upload", class: "btn btn-large btn-primary" %>
         <% end %>
