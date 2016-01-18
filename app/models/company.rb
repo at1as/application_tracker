@@ -17,14 +17,23 @@ class Company < ActiveRecord::Base
 
 
   def self.filter(attributes)
-    puts "A #{attributes}"    
     attributes.reduce(all) do |scope, (key, value)|
 
-      if !value.blank? and !value.nil?
+      if !value.blank? && !value.nil?
         case key.to_sym
           when :filter_name, :filter_status, :filter_location
             current_key = key.gsub('filter_', '')
-            scope.where(["#{current_key} ILIKE ?", "%#{value}%"])
+            db_query = "#{current_key} ILIKE ?"
+            active_record_query = [db_query]
+
+            # Break into multiple queries with OR logic separated by '||'
+            queries = value.split("||").map{ |x| x.strip.chomp('|').strip }.reject{ |x| x.empty? }
+
+            queries.each_with_index do |query, idx|
+              active_record_query.first << " OR #{db_query}" if idx != 0
+              active_record_query << "%#{query}%"
+            end
+            scope.where(active_record_query)
           when :filter_size_min
             value = valid_int_range(value)
             scope.where("size >= ?", value)
