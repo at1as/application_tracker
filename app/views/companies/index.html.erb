@@ -42,6 +42,7 @@
 
     </div>
   </div>
+  <%= link_to 'Download as CSV', user_companies_path(@current_user, :format => "csv"), data: { type: :csv } %>
 </div>
 
 

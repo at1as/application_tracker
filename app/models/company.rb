@@ -51,6 +51,18 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def self.to_csv
+    attributes = %w(name location size status website details created_at updated_at)
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |company|
+        csv << attributes.map{ |attr| company.send(attr) }
+      end
+    end
+  end
+
   def self.valid_int_range(num)
     return 0 if num.to_i < 0
     return MAX_POSTGRES_INT if num.to_i > MAX_POSTGRES_INT

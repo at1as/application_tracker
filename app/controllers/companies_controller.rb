@@ -25,9 +25,19 @@ class CompaniesController < ApplicationController
 
   def index
     @user = current_user
-
     @companies = @user.companies.paginate(page: params[:page])
     @length = @companies.length
+    
+    respond_to do |format|
+      format.html
+      format.csv do
+        csv_name = "companies-#{Date.today}.csv"
+        
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = "attachment; filename=#{csv_name}"
+        send_data @companies.to_csv, filename: csv_name
+      end
+    end
   end
 
   def new
