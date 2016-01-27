@@ -4,9 +4,10 @@ Application tracker keeps track of job applications, positions and contacts, and
 
 
 ### Screenshots
-
+##### Company Page
 ![Screenshot](http://at1as.github.io/github_repo_assets/application-tracker1.jpg)
 
+##### List of Companies
 ![Screenshot](http://at1as.github.io/github_repo_assets/application-tracker2.jpg)
 
 ### Details
@@ -41,6 +42,5 @@ Or, use it on [Heroku](http://application-tracker.herokuapp.com/), and be able t
 
 * Write tests
 * Support Multiple Attachments
-* Support changing email address
-* More sorting/filtering options (AND, OR, NOT, etc)
+* More filtering options (NOT, etc)
 

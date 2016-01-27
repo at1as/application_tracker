@@ -34,7 +34,7 @@
         <dd><%= @company.location %></dd>
         <% end %>
 
-        <% if !@company.size.nil? %>
+        <% if !@company.size.nil? && !@company.size.empty? %>
         <dt>
           <b>Size </b>: 
         </dt>
