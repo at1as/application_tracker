@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014033508) do
+ActiveRecord::Schema.define(version: 20160128190817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,8 +31,10 @@ ActiveRecord::Schema.define(version: 20151014033508) do
     t.string   "attachment_content_type"
     t.integer  "attachment_file_size"
     t.datetime "attachment_updated_at"
+    t.integer  "event_id"
   end
 
+  add_index "companies", ["event_id"], name: "index_companies_on_event_id", using: :btree
   add_index "companies", ["position_id"], name: "index_companies_on_position_id", using: :btree
   add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree
 
@@ -49,6 +51,15 @@ ActiveRecord::Schema.define(version: 20151014033508) do
   end
 
   add_index "contacts", ["company_id"], name: "index_contacts_on_company_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "date"
+    t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "company_id"
+    t.string   "event_type"
+  end
 
   create_table "positions", force: :cascade do |t|
     t.string   "name"
@@ -67,6 +78,7 @@ ActiveRecord::Schema.define(version: 20151014033508) do
     t.string   "remember_digest"
   end
 
+  add_foreign_key "companies", "events"
   add_foreign_key "companies", "positions"
   add_foreign_key "contacts", "companies"
 end

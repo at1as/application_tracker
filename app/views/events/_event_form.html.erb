@@ -1,0 +1,67 @@
+<%= form_for [@user, @company, @event], html: { class: "left" } do |f| %>
+
+  <p style="text-align:center">
+    <%= link_to "Back to #{@company.name} Profile", user_company_path(@user, @company) %>
+  </p>
+  
+  <%= flash_messages %>
+
+  <% if @event.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+    This form contains <%= pluralize(@event.errors.count, "error") %>
+    </div>
+    <ul>
+    <% @event.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <h4 class="seperator">Event Details</h4>
+  <hr>
+
+  <p>
+    <%= f.label "Date" %><span class="required_star">*</span><br>
+    <%= f.text_field :date, class: 'form-control datepicker', 'data-behaviour' => 'datepicker' %>
+  </p>
+
+  <p>
+    <%= f.label "Type" %><span class="required_star">*</span><br>
+    <%= f.select :event_type, options_for_select([  ['Applied', 'Applied'], 
+                                                    ['Email Exchange', 'Email Exchange'],
+                                                    ['Onsite Interview', 'Onsite Intervew'],
+                                                    ['Phone Interview', 'Phone Interview'],
+                                                    ['Video Interview', 'Video Interview'],
+                                                    ['Offer Extended', 'Offer Extended'],
+                                                    ['No Offer Extended', 'No Offer Extended'],
+                                                    ['Counter Offer', 'Counter Offer'],
+                                                    ['Offer Accepted', 'Offer Accepted'],
+                                                    ['Offer Declined', 'Offer Declined'],
+                                                    ['Other', 'Other']],
+                                                    ["#{@event.event_type}", "#{@event.event_type}"]), 
+                                                    name: 'event_type', 
+                                                    class: 'form-control' %>
+  </p>
+    
+  <p>
+    <%= f.label "Details" %><br>
+    <%= f.text_area :text, class: 'form-control' %>
+  </p>
+
+  <% if f.object.new_record? %>
+    <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+    <p style="text-align:center">
+    <%= link_to 'Cancel', user_company_path(@user, @company), 
+      class: "btn btn-large btn-primary", style: "margin-top:10px; width:100%" %> 
+    </p>
+  <% else %>
+    <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+    <p style="text-align:center">
+    <%= link_to 'Delete Event', user_company_event_path, method: :delete, data: { confirm: 'Are you sure?' }, 
+      class: "btn btn-large btn-primary", style: "margin-top:10px; width:100%" %> 
+    </p>
+  <% end %>
+
+<% end %>

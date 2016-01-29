@@ -55,6 +55,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     @contacts = @company.contacts.paginate(page: params[:page])
     @positions = @company.positions.paginate(page: params[:page])
+    @events = @company.events.paginate(page: params[:page])
   end
 
   def create

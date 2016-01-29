@@ -9,8 +9,6 @@
 
     <%= flash_messages %>
 
-
-
     <h4 class="seperator">Company Details</h4>
     <hr>
 
@@ -71,7 +69,37 @@
           class: 'btn btn-large btn-primary' %>
     </div>
 
-    <!-- COMPANIES -->
+
+    <!-- EVENTS -->
+    <p>
+      <% if @company.events.count == 0 %>
+        <h4 class="seperator">Events</h4>
+      <% else %>
+        <h4 class="seperator">Events (<%= @company.events.count %>)</h4>
+      <% end %>
+    </p>
+
+    <hr>
+
+    <h4 class="center" style="text-decoration:underline"> Upcoming </h4>
+    <% if @company.events.future.any? %>
+      <%= render @events.future %>
+      <%= will_paginate @events %>
+    <% end %>
+    
+   <h4 class="center" style="text-decoration:underline; margin-top:20px"> Past </h4>
+    <% if @company.events.past.any? %>
+      <%= render @events.past %>
+      <%= will_paginate @events %>
+    <% end %>
+    
+    <div style="margin-top:30px; margin-bottom:10px; max-width:185px; margin-left:auto; margin-right:auto">
+      <%= link_to 'Add New Event', new_user_company_event_path(@user, @company),
+          class: 'btn btn-large btn-primary', style: 'width:100%; margin-bottom:10px'%>
+    </div>
+
+
+    <!-- CONTACTS -->
     <p>
     <% if @company.contacts.count == 0 %>                                                                                                                                     
       <h4 class="seperator">Company Contacts</h4>
@@ -83,8 +111,8 @@
     
     <% if @company.contacts.any? %>
       <%= render @contacts %>
+      <%= will_paginate @contacts %>
     <% end %>
-    <%= will_paginate @contacts %>
   
     </p>
 
