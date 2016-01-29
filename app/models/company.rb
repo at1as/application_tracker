@@ -63,6 +63,31 @@ class Company < ActiveRecord::Base
       end
     end
   end
+  
+  def self.to_nested_csv(nested_model)
+    case nested_model
+    when :events
+      attributes = %w(company date event_type text)
+    when :positions
+      attributes = %w(company name url description)
+    when :contacts
+      attributes = %w(company name location position details email phone)
+    else
+      render :status => 404
+    end
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |company|
+        company.send(nested_model).each do |event|
+          csv << attributes.map do |attr| 
+            attr == "company" ? company.name : event.send(attr)
+          end
+        end
+      end
+    end
+  end
 
   def self.valid_int_range(num)
     return 0 if num.to_i < 0
