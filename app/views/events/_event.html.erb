@@ -1,0 +1,8 @@
+<div class="event-div">
+  <div class="event-date">
+    <%= link_to "#{event.date}", user_company_event_path(@user, @company, event) %> 
+  </div>
+  <div class="event-type">
+    <%= event.event_type %>
+  </div>
+</div>

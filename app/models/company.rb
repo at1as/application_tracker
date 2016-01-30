@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   belongs_to :user
 
   has_many :contacts, dependent: :destroy
+  has_many :events, dependent: :destroy
   has_many :positions, dependent: :destroy
   
   has_attached_file :attachment
@@ -59,6 +60,31 @@ class Company < ActiveRecord::Base
 
       all.each do |company|
         csv << attributes.map{ |attr| company.send(attr) }
+      end
+    end
+  end
+  
+  def self.to_nested_csv(nested_model)
+    case nested_model.to_sym
+    when :events
+      attributes = %w(company date event_type text)
+    when :positions
+      attributes = %w(company name url description)
+    when :contacts
+      attributes = %w(company name location position details email phone)
+    else
+      return nil
+    end
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |company|
+        company.send(nested_model).each do |event|
+          csv << attributes.map do |attr| 
+            attr == "company" ? company.name : event.send(attr)
+          end
+        end
       end
     end
   end

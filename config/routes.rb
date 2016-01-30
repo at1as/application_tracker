@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   # High precedence custom routes
   get 'users/:user_id/companies/filter', to: 'companies#filter', as: 'filter_companies'
+  get 'users/:user_id/companies/csv', to: 'companies#to_csv', as: 'companies_csv'
   get 'users/:user_id/change_email', to: 'users#change_email', as: 'change_email'
   post 'users/:user_id/change_email', to: 'users#update_email', as: 'update_email'
 
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   resources :users, except: [:index] do
     resources :companies do
       resources :contacts
+      resources :events
       resources :positions
     end
   end

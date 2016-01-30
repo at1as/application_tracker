@@ -3,11 +3,6 @@ class PositionsController < ApplicationController
   before_action :logged_in_user
   before_action :set_position, only: [:show, :edit, :update, :destroy]
 
-  # GET /positions
-  def index
-    @positions = Position.all
-  end
-
   # GET /positions/1
   def show
     @user = current_user
@@ -63,7 +58,7 @@ class PositionsController < ApplicationController
     @position = Position.find(params[:id])
 
     @position.destroy
-    redirect_to user_company_path(current_user, @company), :flash => {:success => "Position deleted!" }
+    redirect_to user_company_path(current_user, @company), :flash => {:success => "Position deleted!"}
   end
 
   private

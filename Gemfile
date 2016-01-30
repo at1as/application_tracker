@@ -5,17 +5,18 @@ gem 'rails', '4.2.3'
 gem 'puma'                              # Use multithreaded puma webserver
 
 # JavaScript & CSS
-gem 'sass-rails', '~> 5.0'              # Use SCSS for stylesheets
-gem 'coffee-rails', '~> 4.0.0'          # Use CoffeeScript for .js.coffee assets and views
-gem 'bootstrap-sass', '~> 3.2.0'        # Use bootstrap with Sass
 gem 'autoprefixer-rails'
-gem 'will_paginate',           '3.0.7'  # Pagination
-gem 'bootstrap-will_paginate', '0.0.10' # Pagination
+gem 'coffee-rails', '~> 4.0.0'          # Use CoffeeScript for .js.coffee assets and views
+gem 'bootstrap-datepicker-rails'        # Datepicker for Bootstrap
+gem 'bootstrap-sass', '~> 3.2.0'        # Use bootstrap with Sass
 gem 'bootstrap-table-rails', '~> 1.8.1' # Table sorting
+gem 'bootstrap-will_paginate', '0.0.10' # Pagination
 gem 'jquery-rails'                      # Use jQuery as JS Library 
 gem 'jquery-turbolinks'                 # Support for Turbolinks with jQuery
 gem 'turbolinks'                        # Selectively reload portions of pages rather than full reload
+gem 'sass-rails', '~> 5.0'              # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0'              # Use Uglifier as compressor for JavaScript assets
+gem 'will_paginate',           '3.0.7'  # Pagination
 
 # Other
 gem 'bcrypt', '~> 3.1.7'                # Use ActiveModel has_secure_password

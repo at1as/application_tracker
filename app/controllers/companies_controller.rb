@@ -23,21 +23,28 @@ class CompaniesController < ApplicationController
     render :partial => 'company', collection: @companies
   end
 
+  def to_csv
+    @user = current_user
+
+    respond_to do |format|
+      format.csv do
+        csv_name = "#{params[:csv_type]}-#{Date.today}.csv"
+        
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = "attachment; filename=#{csv_name}"
+        if params[:csv_type] == "companies"
+          send_data @user.companies.to_csv, filename: csv_name
+        else
+          send_data @user.companies.to_nested_csv(params[:csv_type]), filename: csv_name
+        end
+      end
+    end
+  end
+
   def index
     @user = current_user
     @companies = @user.companies.paginate(page: params[:page])
     @length = @companies.length
-    
-    respond_to do |format|
-      format.html
-      format.csv do
-        csv_name = "companies-#{Date.today}.csv"
-        
-        response.headers['Content-Type'] = 'text/csv'
-        response.headers['Content-Disposition'] = "attachment; filename=#{csv_name}"
-        send_data @companies.to_csv, filename: csv_name
-      end
-    end
   end
 
   def new
@@ -55,6 +62,7 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
     @contacts = @company.contacts.paginate(page: params[:page])
     @positions = @company.positions.paginate(page: params[:page])
+    @events = @company.events.paginate(page: params[:page])
   end
 
   def create
@@ -99,7 +107,7 @@ class CompaniesController < ApplicationController
 
   private
     def company_params
-      params.require(:company).permit(:name, :status, :location, :size, :website, :details, :attachment)
+      params.require(:company).permit(:name, :status, :location, :size, :website, :details, :attachment, :csv_type)
     end
 
     def valid_range(num, min, max)
