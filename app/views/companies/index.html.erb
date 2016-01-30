@@ -42,8 +42,22 @@
 
     </div>
   </div>
-  <%= link_to 'Download as CSV', user_companies_path(@current_user, :format => "csv"), data: { type: :csv } %>
-</div>
 
+  <% if @user.companies.any? %>
+    <hr style="margin-top:20px">
+    <div style="width:400px; margin-left:auto; margin-right:auto">
+      <%= form_tag(companies_csv_path(@current_user, :csv_type => :csv_type, :format => "csv"), method: :get) do %>
+        <%= label_tag :download, "Download as CSV" %><br />
+        <%= select_tag :csv_type, options_for_select([['Companies', 'companies'], 
+                                                      ['Contacts', 'contacts'],
+                                                      ['Events', 'events'],
+                                                      ['Positions', 'positions']]),
+                                                     name: 'csv_type',
+                                                     class: 'form-control' %>
+        <%= submit_tag 'Download', class: 'btn btn-large btn-primary', style: 'margin-top:10px' %>
+      <% end %>
+    </div>
+  <% end %>
 
+  </div>
 </div>

@@ -65,7 +65,7 @@ class Company < ActiveRecord::Base
   end
   
   def self.to_nested_csv(nested_model)
-    case nested_model
+    case nested_model.to_sym
     when :events
       attributes = %w(company date event_type text)
     when :positions
@@ -73,7 +73,7 @@ class Company < ActiveRecord::Base
     when :contacts
       attributes = %w(company name location position details email phone)
     else
-      render :status => 404
+      return nil
     end
 
     CSV.generate(headers: true) do |csv|
