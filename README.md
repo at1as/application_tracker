@@ -5,10 +5,15 @@ Application tracker keeps track of job applications, positions and contacts, and
 
 ### Screenshots
 ##### Company Page
-![Screenshot](http://at1as.github.io/github_repo_assets/application-tracker1.jpg)
+<p align="center">
+  <img src="http://at1as.github.io/github_repo_assets/application-tracker1.jpg"/>
+</p>
 
 ##### List of Companies
-![Screenshot](http://at1as.github.io/github_repo_assets/application-tracker2.jpg)
+<img src="http://at1as.github.io/github_repo_assets/application-tracker2.jpg"/>
+
+##### List of Companies
+<img src="http://at1as.github.io/github_repo_assets/application-tracker3.jpg"/>
 
 ### Details
 
