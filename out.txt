@@ -1,0 +1,51 @@
+
++BRAKEMAN REPORT+
+
+Application path: /Users/jasonw/Repos/application_tracker
+Rails version: 4.2.3
+Brakeman version: 3.1.4
+Started at 2016-01-29 14:34:05 -0500
+Duration: 1.042567 seconds
+Checks run: BasicAuth, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NumberToCurrency, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
+
+
++SUMMARY+
+
++-------------------+-------+
+| Scanned/Reported  | Total |
++-------------------+-------+
+| Controllers       | 7     |
+| Models            | 5     |
+| Templates         | 34    |
+| Errors            | 0     |
+| Security Warnings | 5 (1) |
++-------------------+-------+
+
++---------------------+-------+
+| Warning Type        | Total |
++---------------------+-------+
+| Dynamic Render Path | 4     |
+| Format Validation   | 1     |
++---------------------+-------+
+
+
+
+Model Warnings:
+
++------------+---------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Confidence | Model   | Warning Type      | Message                                                                                                                             |
++------------+---------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| High       | Contact | Format Validation | Insufficient validation for 'phone' using /\D*([2-9]\d{2})(\D*)([2-9]\d{2})(\D*)(\d{4})\D*/i. Use \A and \z as anchors near line 10 |
++------------+---------+-------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+
+View Warnings:
+
++------------+-------------------------------------------+---------------------+------------------------------------------------------------------------------------------------------------------------>>
+| Confidence | Template                                  | Warning Type        | Message                                                                                                                >>
++------------+-------------------------------------------+---------------------+------------------------------------------------------------------------------------------------------------------------>>
+| Weak       | companies/show (CompaniesController#show) | Dynamic Render Path | Render path contains parameter value near line 85: render(action => Company.find(params[:id]).events.paginate(:page => >>
+| Weak       | companies/show (CompaniesController#show) | Dynamic Render Path | Render path contains parameter value near line 91: render(action => Company.find(params[:id]).events.paginate(:page => >>
+| Weak       | companies/show (CompaniesController#show) | Dynamic Render Path | Render path contains parameter value near line 112: render(action => Company.find(params[:id]).contacts.paginate(:page >>
+| Weak       | companies/show (CompaniesController#show) | Dynamic Render Path | Render path contains parameter value near line 134: render(action => Company.find(params[:id]).positions.paginate(:page>>
++------------+-------------------------------------------+---------------------+------------------------------------------------------------------------------------------------------------------------>>
+
