@@ -1,0 +1,14 @@
+<%= calendar previous_link: calendar_previous,
+  prev_text: "abc",
+                 next_text: " >",
+                 events: events do |date, events| %>
+          
+  <div class="calendar-date"><%= date.day %></span>
+
+  <% events.each do |event| %>
+    <div>
+      <%= link_to "#{event.event_type} (#{@companies.find(event.company_id).name})", user_company_path(@user, @companies.find(event.company_id)) %><br/> 
+    </div>
+  <% end %>
+
+<% end %>

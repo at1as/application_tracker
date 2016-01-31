@@ -14,9 +14,10 @@ gem 'bootstrap-will_paginate', '0.0.10' # Pagination
 gem 'jquery-rails'                      # Use jQuery as JS Library 
 gem 'jquery-turbolinks'                 # Support for Turbolinks with jQuery
 gem 'turbolinks'                        # Selectively reload portions of pages rather than full reload
+gem 'simple_calendar', '~> 2.0'         # Simple JS calendar
 gem 'sass-rails', '~> 5.0'              # Use SCSS for stylesheets
 gem 'uglifier', '>= 1.3.0'              # Use Uglifier as compressor for JavaScript assets
-gem 'will_paginate',           '3.0.7'  # Pagination
+gem 'will_paginate', '3.0.7'            # Pagination
 
 # Other
 gem 'bcrypt', '~> 3.1.7'                # Use ActiveModel has_secure_password

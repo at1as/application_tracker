@@ -5,6 +5,11 @@ class Event < ActiveRecord::Base
 
   validates :date, presence: true
 
+  def start_time
+    # Used for simple calendar gem
+    DateTime.parse(date)
+  end
+
   def self.date_string_to_date(date_str)
     Date.parse(date_str)
   end

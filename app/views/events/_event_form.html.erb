@@ -24,7 +24,7 @@
 
   <p>
     <%= f.label "Date" %><span class="required_star">*</span><br>
-    <%= f.text_field :date, class: 'form-control datepicker', 'data-behaviour' => 'datepicker' %>
+    <%= f.text_field :date, class: 'form-control datepicker', 'data-behaviour' => 'datepicker', pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}' %>
   </p>
 
   <p>

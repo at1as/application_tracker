@@ -81,14 +81,14 @@
 
     <hr>
 
-    <h4 class="center" style="text-decoration:underline"> Upcoming </h4>
     <% if @company.events.future.any? %>
+      <h4 class="center" style="text-decoration:underline"> Upcoming </h4>
       <%= render @events.future %>
       <%= will_paginate @events %>
     <% end %>
     
-   <h4 class="center" style="text-decoration:underline; margin-top:20px"> Past </h4>
     <% if @company.events.past.any? %>
+     <h4 class="center" style="text-decoration:underline; margin-top:20px"> Past </h4>
       <%= render @events.past %>
       <%= will_paginate @events %>
     <% end %>

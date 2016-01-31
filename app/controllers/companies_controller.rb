@@ -23,6 +23,16 @@ class CompaniesController < ApplicationController
     render :partial => 'company', collection: @companies
   end
 
+  def calendar
+    @user = current_user
+    @companies = Company.all
+    @events = []
+    @user.companies.each{ |company| company.events.each { |event| @events << event } }
+    #u1.companies.each{ |c| c.events.each {|e| zz << e }} }
+    #@events = @user.companies.each{ |company| company.events }.flatten
+    render :calendar
+  end
+
   def to_csv
     @user = current_user
 
