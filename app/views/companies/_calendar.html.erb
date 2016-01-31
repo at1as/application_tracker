@@ -1,9 +1,6 @@
-<%= calendar previous_link: calendar_previous,
-  prev_text: "abc",
-                 next_text: " >",
-                 events: events do |date, events| %>
+<%= calendar events: events do |date, events| %>
           
-  <div class="calendar-date"><%= date.day %></span>
+  <div class="calendar-date"><%= date.day %></div>
 
   <% events.each do |event| %>
     <div>
