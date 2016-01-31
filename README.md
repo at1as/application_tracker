@@ -4,29 +4,39 @@ Application tracker keeps track of job applications, positions and contacts, and
 
 
 ### Screenshots
-##### Company Page
+
+Screenshots frequently become outdated – see the App on [Heroku](https://application-tracker.herokuapp.com) for the latest
+
+#### List of Companies
+<p align="center">
+  <img src="http://at1as.github.io/github_repo_assets/application-tracker2.jpg" style="max-width:700px"/>
+</p>
+
+#### Calendar View
+<p align="center">
+  <img src="http://at1as.github.io/github_repo_assets/application-tracker3.jpg" style="max-width:700px"/>
+</p>
+
+#### Company Page
 <p align="center">
   <img src="http://at1as.github.io/github_repo_assets/application-tracker1.jpg"/>
 </p>
 
-##### List of Companies
-<img src="http://at1as.github.io/github_repo_assets/application-tracker2.jpg"/>
-
-##### List of Companies
-<img src="http://at1as.github.io/github_repo_assets/application-tracker3.jpg"/>
 
 ### Details
+
 
 Information:
 
 * Create company profiles
-* Attach job positions to each company
-* Attach contacts to each company
-* Attach miscellaneous files and documents
+* Attach job positions, contacts to each company
+* View past and upcoming events in a calendar
+* Attach miscellaneous files and documents to each company
 
 Sorting
 
-* By company size, location & application status
+* By name, company size, location & application status
+* Supports "||" as an OR for name and application status fields
 
 
 ### Usage
@@ -40,7 +50,7 @@ $ RAILS_ENV=production bin/rails server   # Production uses postgres
 $ bin/rails bin/rails server              # Test/Development uses Sqlite3
 ```
 
-Or, use it on [Heroku](http://application-tracker.herokuapp.com/), and be able to access it from anywhere
+Or, use it on [Heroku](https://application-tracker.herokuapp.com/), and be able to access it from anywhere
 
 
 ### TODO
@@ -48,4 +58,3 @@ Or, use it on [Heroku](http://application-tracker.herokuapp.com/), and be able t
 * Write tests
 * Support Multiple Attachments
 * More filtering options (NOT, etc)
-
