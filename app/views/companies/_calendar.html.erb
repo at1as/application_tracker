@@ -4,7 +4,7 @@
 
   <% events.each do |event| %>
     <div>
-      <%= link_to "#{event.event_type} (#{@companies.find(event.company_id).name})", user_company_path(@user, @companies.find(event.company_id)) %><br/> 
+      <%= "#{event.event_type} (" %><%= link_to "#{@companies.find(event.company_id).name}", user_company_path(@user, @companies.find(event.company_id)) %>)<br/> 
     </div>
   <% end %>
 
