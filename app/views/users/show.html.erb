@@ -30,10 +30,11 @@
       <%= link_to 'Change Password', edit_user_path(@user) %><br/><br/>
       <%= link_to 'Delete Account', @user, method: :delete, data: { confirm: "Are you sure you want to delete your account and all associated posts? This can't be undone" } %><br/>
 
-      <h4 class="seperator">Links</h4>
+      <h4 class="seperator">Pages</h4>
       <hr>
 
-      <%= link_to 'Companies', user_companies_path(@current_user) %>
+      <%= link_to 'Companies', user_companies_path(@current_user) %><br/>
+      <%= link_to 'Calendar', calendar_path(@current_user) %>
 
     </div>
   </div>

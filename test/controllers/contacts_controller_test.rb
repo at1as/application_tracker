@@ -17,7 +17,7 @@ class ContactsControllerTest < ActionController::TestCase
   end
 
   test "should create contact" do
-    assert_difference('Contact.count') do
+    assert_difference('Contact.count', 1) do
       post :create, :user_id => @user.id, :company_id => @company.id, contact: { name: 'c1' }
     end
     
@@ -49,5 +49,6 @@ class ContactsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to user_company_path(@user, @company)
+    assert_equal "Contact deleted!", flash['alert-success']
   end
 end

@@ -17,7 +17,7 @@ class PositionsControllerTest < ActionController::TestCase
   end
 
   test "should create position" do
-    assert_difference('Position.count') do
+    assert_difference('Position.count', 1) do
       post :create, :user_id => @user.id, :company_id => @company.id, position: { name: 'p1' }
     end
     
@@ -37,8 +37,8 @@ class PositionsControllerTest < ActionController::TestCase
   end
 
   test "should update position" do
-    patch :update, id: @position, :user_id => @user.id, :company_id => @company.id, position: { name: 'p1' }
-    assert_redirected_to user_company_path(@user, @company) #assigns(:position))
+    patch :update, id: @position, :user_id => @user.id, :company_id => @company.id, position: { name: 'p2' }
+    assert_redirected_to user_company_path(@user, @company)
     assert_nil flash[:error]
     assert_equal flash[:success], "Position details updated"
   end
@@ -49,5 +49,6 @@ class PositionsControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to user_company_path(@user, @company)
+    assert_equal "Position deleted!", flash[:success]
   end
 end
