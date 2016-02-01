@@ -55,6 +55,5 @@ Or, use it on [Heroku](https://application-tracker.herokuapp.com/), and be able 
 
 ### TODO
 
-* Write tests
 * Support Multiple Attachments
 * More filtering options (NOT, etc)

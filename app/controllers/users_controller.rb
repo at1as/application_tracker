@@ -20,6 +20,7 @@ class UsersController < ApplicationController
     
     if @user.save
       log_in @user
+      flash[:success] = "Account Created"
       redirect_to user_path(@user)
     else
       render 'new'
