@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202172803) do
+ActiveRecord::Schema.define(version: 20160203041850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20160202172803) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.string   "time_zone"
+    t.string   "time_zone",       default: "Eastern Time (US & Canada)"
   end
 
   add_foreign_key "companies", "events"

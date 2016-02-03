@@ -1,0 +1,51 @@
+<div class="center">
+
+  <h1>Set TimeZone</h1>
+
+    <div class="outer_form_container">
+      <div class="form_boundary">
+      
+      
+<%= form_tag update_timezone_path(@user), method: "post", class: "left" do |f| %>
+
+  <%= flash_messages %>
+
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <div class="alert alert-error">
+      This form contains <%= pluralize(@user.errors.count, "error") %>
+      </div>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+        <li>* <%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <span class="seperator">Account Details</span>
+  <hr>
+
+  <p>
+    <%= label_tag "time_zone", "Timezone"%><span class="required_star">*</span><br>
+    <% if @user.time_zone %>
+      <%= time_zone_select( "", "time_zone", nil, default: "#{@user.time_zone}" ) %>
+    <% else %>
+      <%= time_zone_select( "", "time_zone", nil, default: "Pacific Time (US & Canada)" ) %>
+    <% end %>
+  </p>
+
+
+  <p style="margin-top:30px">
+    <%= submit_tag "Update", class: "btn btn-large btn-primary" %>
+  </p>
+
+<% end %>
+      
+      
+      </div>
+    </div>
+
+  <%= link_to 'Back', @user %>
+
+</div>
