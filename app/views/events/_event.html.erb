@@ -1,7 +1,7 @@
 <div class="event-div">
   <div class="event-date">
     <%= link_to "#{event.date}", user_company_event_path(@user, @company, event) %> 
-    <% if !event.start_time.empty? %>
+    <% if !event.start_time.nil? && !event.start_time.empty? %>
       <div class="event-time"><%= event.start_time %></div>
     <% end %>
   </div>
