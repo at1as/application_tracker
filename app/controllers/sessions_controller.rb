@@ -13,13 +13,14 @@ class SessionsController < ApplicationController
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to user_path(user.id)
     else
-      flash.now[:error] = 'Invalid email or password'
+      flash.now['alert-danger'] = 'Invalid email or password'
       render 'new'
     end
   end
 
   def destroy
     log_out if logged_in?
+    flash['alert-success'] = "Successfully logged out"
     redirect_to root_url
   end
 

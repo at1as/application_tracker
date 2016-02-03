@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get 'users/:user_id/companies/calendar', to: 'companies#calendar', as: 'calendar'
   get 'users/:user_id/change_email', to: 'users#change_email', as: 'change_email'
   post 'users/:user_id/change_email', to: 'users#update_email', as: 'update_email'
+  get 'users/:user_id/timezone', to: 'users#change_timezone', as: 'change_timezone'
+  post 'users/:user_id/timezone', to: 'users#update_timezone', as: 'update_timezone'
 
   # Nested Controllers
   resources :users, except: [:index] do

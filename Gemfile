@@ -11,6 +11,7 @@ gem 'bootstrap-datepicker-rails'        # Datepicker for Bootstrap
 gem 'bootstrap-sass', '~> 3.2.0'        # Use bootstrap with Sass
 gem 'bootstrap-table-rails', '~> 1.8.1' # Table sorting
 gem 'bootstrap-will_paginate', '0.0.10' # Pagination
+gem 'jquery-timepicker-rails'           # Timepicker dropdowns for form fields
 gem 'jquery-rails'                      # Use jQuery as JS Library 
 gem 'jquery-turbolinks'                 # Support for Turbolinks with jQuery
 gem 'turbolinks'                        # Selectively reload portions of pages rather than full reload
@@ -32,6 +33,7 @@ group :development, :test do
   gem 'brakeman', :require => false     # Generate security reports brakeman
   gem 'byebug'                          # Debugger
   gem 'sqlite3'                         # Use SQLite for Development & Test
+  gem 'web-console', '~> 2.0'           # Access an IRB console on exception pages or by using <%= console %> in views
 end
 
 group :production do

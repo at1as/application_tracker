@@ -45,7 +45,6 @@ class UsersController < ApplicationController
 
   def change_email
     @user = current_user
-    
     render 'change_email'
   end
 
@@ -67,6 +66,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_timezone
+    @user = current_user
+    render 'change_timezone'
+  end
+
+  def update_timezone
+    @user = current_user
+    @user.time_zone = params[:time_zone]
+    
+    if @user.save(validate: false)
+      flash[:success] = "Successfully updated timezone"
+      redirect_to '/'
+    else
+      flash[:error] = "Error changing timezone"
+      render 'change_timezone'
+    end
+  end
 
   private
     def set_user
@@ -74,7 +90,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :remember_digest)
+      params.require(:user).permit(:email, :password, :password_confirmation, :remember_digest, :time_zone)
     end
 
     def update_user_params
