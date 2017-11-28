@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.7.1'
 gem 'puma'                              # Use multithreaded puma webserver
 
 # JavaScript & CSS
